@@ -243,7 +243,10 @@ def parse_v2_blockchain_certificate(certificate_json, version_marker):
         recipient_profile = certificate_json[scope_name('recipientProfile')]
 
     recipient_public_key_full = recipient_profile['publicKey']
-    recipient_public_key = str.split(str(recipient_public_key_full), ':')[1]
+    if ":" in recipient_public_key_full:
+        recipient_public_key = str.split(str(recipient_public_key_full), ':')[1]
+    else:
+        recipient_public_key = recipient_public_key_full
 
     import copy
     document_json = copy.deepcopy(certificate_json)
